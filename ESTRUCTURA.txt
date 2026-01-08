@@ -1,0 +1,85 @@
+ProyectoMERN/
+│
+├── 📦 backend/
+│   ├── src/
+│   │   ├── config/
+│   │   │   └── database.js          # Configuración de MongoDB
+│   │   ├── controllers/              # Controladores (por agregar)
+│   │   ├── routes/
+│   │   │   └── index.js              # Rutas principales
+│   │   ├── models/                   # Modelos Mongoose (por agregar)
+│   │   └── server.js                 # Punto de entrada del backend
+│   ├── Dockerfile                    # Multi-stage build optimizado
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── .env.example
+│   └── package.json                  # Dependencias Node.js
+│
+├── 🎨 frontend/
+│   ├── src/
+│   │   ├── App.jsx                   # Componente principal
+│   │   ├── App.css                   # Estilos
+│   │   ├── main.jsx                  # Punto de entrada
+│   │   └── index.css                 # Estilos globales
+│   ├── public/                       # Archivos estáticos
+│   ├── index.html                    # HTML principal
+│   ├── Dockerfile                    # Multi-stage build
+│   ├── .dockerignore
+│   ├── .gitignore
+│   ├── vite.config.js                # Config de Vite
+│   └── package.json                  # Dependencias React
+│
+├── 🐳 docker-compose.yml             # Orquestación de servicios
+├── .env.example                      # Variables de entorno ejemplo
+├── .gitignore                        # Ignorar archivos en Git
+└── README.md                         # Documentación completa
+
+════════════════════════════════════════════════════════════════
+
+📊 SERVICIOS EN DOCKER COMPOSE:
+
+1️⃣  MONGODB (Base de datos)
+   └─ Imagen: mongo:7.0-alpine
+   └─ Puerto: 27017
+   └─ Usuario: admin / password123
+   └─ Volumen persistente: mongodb_data
+
+2️⃣  BACKEND (API REST)
+   └─ Build: ./backend/Dockerfile
+   └─ Puerto: 5000
+   └─ Health Check: /api/health
+   └─ Depends on: mongodb
+
+3️⃣  FRONTEND (React + Vite)
+   └─ Build: ./frontend/Dockerfile
+   └─ Puerto: 3000
+   └─ Build Tool: Vite
+   └─ Depends on: backend
+
+════════════════════════════════════════════════════════════════
+
+🌐 URLS DE ACCESO:
+
+Frontend:  http://localhost:3000
+Backend:   http://localhost:5000
+MongoDB:   mongodb://localhost:27017
+API:       http://localhost:5000/api
+
+════════════════════════════════════════════════════════════════
+
+📋 CARACTERÍSTICAS IMPLEMENTADAS:
+
+✅ Multi-stage Docker builds (optimizados para producción)
+✅ Health checks en todos los servicios
+✅ Red dedicada (bridge network)
+✅ Volúmenes persistentes
+✅ Hot reload en desarrollo
+✅ Dockerfile con usuario no-root
+✅ Dumb-init para manejo de señales
+✅ Variables de entorno configurables
+✅ CORS habilitado
+✅ Mongoose para MongoDB
+✅ Vite como build tool (moderno)
+✅ Nodemon para desarrollo backend
+
+════════════════════════════════════════════════════════════════
