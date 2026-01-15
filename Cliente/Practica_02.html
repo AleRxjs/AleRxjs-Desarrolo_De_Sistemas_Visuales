@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>  
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Zapatería</title>   
+    <link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+    <h1>Zapatería “El Paso Fino”</h1>
+    <p class="texto-chico">Registrar datos del zapato</p>
+
+    <section class="panel">
+        <form id="formulario" novalidate>
+
+            <label for="marcaZapato">Marca del zapato:</label>
+            <input type="text" id="marcaZapato" placeholder="">
+
+            <label for="numeroZapato">Número del zapato:</label>
+            <input type="number" id="numeroZapato" min="1" max="40" placeholder="">
+
+            <div id="textoError" class="error" role="alert"></div>
+
+            <div class="acciones">
+                <button type="submit" id="btnAgregar">Agregar</button>
+                <button type="button" id="btnLimpiar" class="btnSecundario">Limpiar formulario</button>
+                <button type="button" id="btnLimpiarLista" class="btnSecundario">Limpiar lista</button>
+            </div>
+
+        </form>
+    </section>
+
+    <section class="panel-separacion">
+        <h2>Productos agregados</h2>
+        <ol id="listaZapatos">
+            <!-- Los zapatos agregados aparecerán aquí -->
+        </ol>
+        <p id="textoVacio" class="texto-chico">Aún no hay productos agregados</p>
+    </section>
+
+    <script src="app.js" defer></script>
+</body> 
+</html>
