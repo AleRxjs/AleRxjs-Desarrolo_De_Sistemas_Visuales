@@ -16,7 +16,6 @@
   flex-direction:column;
 }
 
-/* HEADER */
 .header{
   height:10%;
   display:flex;
@@ -32,7 +31,6 @@
   background:#2c5282;
 }
 
-/* NAV */
 .nav{
   height:10%;
   display:flex;
@@ -43,19 +41,17 @@
   background:#3db8a5;
 }
 
-/* MAIN */
 .main{
   height:60%;
   display:flex;
 }
 
-/* ASIDE */
+
 .aside{
   width:25%;
   background:#6ab26a;
 }
 
-/* CONTENT */
 .content{
   width:75%;
   display:flex;
