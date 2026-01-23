@@ -1,0 +1,105 @@
+/* Fondo general */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4e8d5; /* Beige claro */
+    margin: 0;
+    padding: 30px;
+}
+
+/* Título principal */
+.titulo {
+    text-align: center;
+    color: #5a2e0c; /* Café oscuro */
+    font-size: 28px;
+    margin-bottom: 25px;
+}
+
+/* Paneles estilo vitrina zapatería */
+.panel {
+    background: white;
+    border: 3px solid #5a2e0c; /* Café */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 650px;
+    margin: 0 auto 25px auto;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+h2 {
+    text-align: center;
+    color: #5a2e0c;
+    margin-top: 0;
+}
+
+/* Etiquetas y campos */
+label {
+    font-weight: bold;
+    color: #5a2e0c;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border-radius: 6px;
+    border: 2px solid #c8b18a; /* Dorado suave */
+    margin-bottom: 12px;
+    background: #fffaf2;
+}
+
+input:focus, textarea:focus {
+    border-color: #b68a4a;
+    outline: none;
+}
+
+/* Botones estilo zapatería */
+button {
+    background: #5a2e0c;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+button:hover {
+    background: #b6843a; /* Dorado intenso */
+}
+
+/* Elementos listados */
+.item {
+    background: #fff7ea;
+    padding: 14px;
+    border: 2px solid #c8b18a;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+/* Botones pequeños estilo zapatería */
+.item-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.edit-btn {
+    background: #0072bb;
+    flex: 1;
+}
+
+.edit-btn:hover {
+    background: #1492dd;
+}
+
+.delete-btn {
+    background: #bb1f1f;
+    flex: 1;
+}
+
+.delete-btn:hover {
+    background: #e13535;
+}
