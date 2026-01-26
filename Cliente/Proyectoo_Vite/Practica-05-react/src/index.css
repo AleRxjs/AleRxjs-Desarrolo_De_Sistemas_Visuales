@@ -1,0 +1,322 @@
+:root {
+  --primary: #3ad5ff;
+  --secondary: #0d1117;
+  --surface: #161b22;
+  --text-color: #e6edf3;
+  --hover: #6ae8ff;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--text-color);
+  background-color: var(--secondary);
+}
+
+/* LINKS */
+a {
+  font-weight: 500;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--hover);
+}
+
+/* BODY */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1d2736 0%, #0d1117 70%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+/* LUNA */
+body::before {
+  content: "";
+  position: fixed;
+  left: 5%;
+  top: 15%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #e0e0e0);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.4), inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+  animation: moon-glow 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+@keyframes moon-glow {
+  0%, 100% { box-shadow: 0 0 40px rgba(255, 255, 255, 0.4), inset -10px -10px 20px rgba(0, 0, 0, 0.2); }
+  50% { box-shadow: 0 0 60px rgba(255, 255, 255, 0.6), inset -10px -10px 20px rgba(0, 0, 0, 0.2); }
+}
+
+/* HALO RING */
+body::after {
+  content: "";
+  position: fixed;
+  right: 8%;
+  bottom: 20%;
+  width: 80px;
+  height: 80px;
+  border: 2px solid #3ad5ff;
+  border-radius: 50%;
+  box-shadow: 0 0 15px #3ad5ff;
+  animation: halo-ring 3s linear infinite;
+  z-index: 1;
+}
+
+@keyframes halo-ring {
+  0% { transform: scale(0.8) rotate(0deg); opacity: 1; }
+  100% { transform: scale(1.3) rotate(360deg); opacity: 0; }
+}
+
+/* TITULOS */
+h1,
+h2,
+h3 {
+  color: var(--primary);
+  letter-spacing: 1px;
+}
+
+/* BOTONES */
+button {
+  border-radius: 6px;
+  border: 1px solid var(--primary);
+  padding: 0.6em 1.2em;
+  background-color: var(--surface);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+button:hover {
+  background-color: var(--primary);
+  color: #0d1117;
+}
+
+/* TARJETAS */
+.card {
+  background: rgba(22, 27, 34, 0.7);
+  border: 1px solid rgba(58, 213, 255, 0.2);
+  padding: 20px;
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 25px rgba(58, 213, 255, 0.08);
+}
+
+/* --- PARTICULAS ESTELARES PREMIUM --- */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  background: var(--primary);
+  border-radius: 50%;
+  opacity: 0.8;
+  box-shadow: 0 0 8px var(--primary);
+  animation: float 10s infinite ease-in-out;
+}
+
+.particle.small {
+  width: 4px;
+  height: 4px;
+  opacity: 0.6;
+}
+
+.particle.tiny {
+  width: 2px;
+  height: 2px;
+  opacity: 0.4;
+}
+
+.particle {
+  width: 6px;
+  height: 6px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+@keyframes explosion {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(var(--tx), var(--ty)) scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(0.2);
+    opacity: 0;
+  }
+}
+
+/* Posiciones */
+.particle:nth-child(1) {
+  top: 10%;
+  left: 20%;
+  animation-delay: 0s;
+}
+
+.particle:nth-child(2) {
+  top: 30%;
+  left: 40%;
+  animation-delay: 1s;
+}
+
+.particle:nth-child(3) {
+  top: 70%;
+  left: 80%;
+  animation: explosion 2s ease-out infinite;
+  --tx: 60px;
+  --ty: -80px;
+  animation-delay: 1.5s;
+}
+
+.particle:nth-child(4) {
+  top: 50%;
+  left: 10%;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(5) {
+  top: 75%;
+  left: 60%;
+  animation-delay: 1.5s;
+}
+
+.particle:nth-child(6) {
+  top: 20%;
+  left: 75%;
+  animation-delay: 2.3s;
+}
+
+.particle:nth-child(7) {
+  top: 85%;
+  left: 30%;
+  animation: explosion 2.2s ease-out infinite;
+  --tx: -70px;
+  --ty: -60px;
+  animation-delay: 0.5s;
+}
+
+.particle:nth-child(8) {
+  top: 55%;
+  left: 90%;
+  animation-delay: 2.8s;
+}
+
+.particle:nth-child(9) {
+  top: 35%;
+  left: 50%;
+  animation-delay: 3.4s;
+}
+
+.particle:nth-child(10) {
+  top: 5%;
+  left: 65%;
+  animation-delay: 4s;
+}
+
+.particle:nth-child(11) {
+  top: 15%;
+  left: 15%;
+  animation-delay: 1.2s;
+}
+
+.particle:nth-child(12) {
+  top: 40%;
+  left: 85%;
+  animation: explosion 2.1s ease-out infinite;
+  --tx: 80px;
+  --ty: 50px;
+  animation-delay: 2.4s;
+}
+
+.particle:nth-child(13) {
+  top: 60%;
+  left: 25%;
+  animation-delay: 0.9s;
+}
+
+.particle:nth-child(14) {
+  top: 80%;
+  left: 55%;
+  animation-delay: 3s;
+}
+
+.particle:nth-child(15) {
+  top: 28%;
+  left: 95%;
+  animation-delay: 1.8s;
+}
+
+.particle:nth-child(16) {
+  top: 92%;
+  left: 10%;
+  animation-delay: 2.9s;
+}
+
+.particle:nth-child(17) {
+  top: 48%;
+  left: 70%;
+  animation: explosion 1.9s ease-out infinite;
+  --tx: -65px;
+  --ty: 70px;
+  animation-delay: 1.2s;
+}
+
+.particle:nth-child(18) {
+  top: 12%;
+  left: 90%;
+  animation-delay: 0.5s;
+}
+
+.particle:nth-child(19) {
+  top: 68%;
+  left: 40%;
+  animation-delay: 3.7s;
+}
+
+.particle:nth-child(20) {
+  top: 82%;
+  left: 75%;
+  animation: explosion 2.3s ease-out infinite;
+  --tx: 75px;
+  --ty: -65px;
+  animation-delay: 4.1s;
+}
+
+/* Para que el contenido esté encima */
+#root {
+  position: relative;
+  z-index: 10;
+}
+
+/* Tema claro opcional */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #1e1e1e;
+    background-color: #ffffff;
+  }
+}
