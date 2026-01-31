@@ -22,27 +22,11 @@ body {
   z-index: -1;
 }
 
-.stars {
-  background-image: url('https://i.imgur.com/kKeI9HX.png');
-  opacity: 0.6;
-}
+.stars { background-image: url('https://i.imgur.com/kKeI9HX.png'); opacity: 0.6; }
+.stars2 { background-image: url('https://i.imgur.com/B9k9RnO.png'); animation-duration: 90s; opacity: 0.35; }
+.stars3 { background-image: url('https://i.imgur.com/GV7CvCq.png'); animation-duration: 120s; opacity: 0.25; }
 
-.stars2 {
-  background-image: url('https://i.imgur.com/B9k9RnO.png');
-  animation-duration: 90s;
-  opacity: 0.35;
-}
-
-.stars3 {
-  background-image: url('https://i.imgur.com/GV7CvCq.png');
-  animation-duration: 120s;
-  opacity: 0.25;
-}
-
-@keyframes move-stars {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(-500px, -500px); }
-}
+@keyframes move-stars { 0% { transform: translate(0,0); } 100% { transform: translate(-500px,-500px); } }
 
 /* ======= CONTENEDOR PRINCIPAL ======= */
 .container {
@@ -50,32 +34,19 @@ body {
   margin: 40px auto;
   padding: 25px;
   border-radius: 14px;
-
   background: linear-gradient(135deg, #0e1520aa, #0a1a25aa);
   backdrop-filter: blur(12px);
-
   border: 1px solid #00eaff44;
   box-shadow: 0 0 20px #00eaff33;
 }
 
 /* ======= TÍTULOS ======= */
-h1 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #7feaff;
-  text-shadow: 0 0 15px #00caffaa;
-}
+h1 { text-align: center; margin-bottom: 20px; color: #7feaff; text-shadow: 0 0 15px #00caffaa; }
 
 /* ======= FORMULARIO ======= */
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-}
+.form { display: flex; flex-direction: column; gap: 10px; text-align: left; }
 
-input,
-select {
+input, select {
   padding: 8px;
   border-radius: 6px;
   border: 1px solid #00aaff55;
@@ -84,23 +55,13 @@ select {
   transition: 0.2s;
 }
 
-input:focus,
-select:focus {
+input:focus, select:focus {
   border-color: #00eaff;
   box-shadow: 0 0 8px #00eaff88;
   outline: none;
 }
 
-.error {
-  color: #ff6060;
-  font-size: 0.8rem;
-}
-
-/* Turnos */
-.turnos {
-  display: flex;
-  gap: 20px;
-}
+.terminos { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #a0eaff; }
 
 /* ======= BOTONES ======= */
 .btn-registrar {
@@ -117,10 +78,7 @@ select:focus {
   transition: 0.3s;
 }
 
-.btn-registrar:hover {
-  background: linear-gradient(90deg, #00eaff, #0088ff);
-  box-shadow: 0 0 12px #00eaffaa;
-}
+.btn-registrar:hover { background: linear-gradient(90deg, #00eaff, #0088ff); box-shadow: 0 0 12px #00eaffaa; }
 
 .btn-borrar {
   margin-left: 10px;
@@ -133,10 +91,7 @@ select:focus {
   transition: 0.2s;
 }
 
-.btn-borrar:hover {
-  background: #ff0000;
-  box-shadow: 0 0 10px #ff5555;
-}
+.btn-borrar:hover { background: #ff0000; box-shadow: 0 0 10px #ff5555; }
 
 /* ======= BARRA DE PROGRESO ======= */
 .barra {
@@ -152,16 +107,19 @@ select:focus {
 .progreso {
   height: 100%;
   border-radius: 10px;
-  transition: width 0.3s, background 0.3s;
+  transition: width 0.05s linear, background 0.3s;
   box-shadow: 0 0 12px #0008 inset;
 }
 
-/* ======= LISTA ======= */
-.lista {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
+/* Animación al guardar (opcional) */
+.animar {
+  animation: cargar 1.2s ease-out;
 }
+
+@keyframes cargar { 0% { width: 0%; } 100% { width: 100%; } }
+
+/* ======= LISTA ======= */
+.lista { list-style: none; padding: 0; margin-top: 20px; }
 
 .lista li {
   background: #0d1a24aa;
@@ -184,20 +142,4 @@ select:focus {
   animation: svgFloat 3s infinite ease-in-out;
 }
 
-@keyframes svgFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-/* Animación al guardar */
-.animar {
-  animation: cargar 1.2s ease-out;
-}
-
-@keyframes cargar {
-  0% {
-    width: 0%;
-  }
-  100% {
-    width: 100%;
-  }
-}
+@keyframes svgFloat { 0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);} }

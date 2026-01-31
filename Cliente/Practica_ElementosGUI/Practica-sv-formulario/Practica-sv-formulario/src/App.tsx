@@ -8,58 +8,74 @@ function App() {
     edad: "",
     carrera: "",
     telefono: "",
+    acepto: false,
   });
 
   const [registros, setRegistros] = useState<any[]>([]);
   const [progreso, setProgreso] = useState(0);
-  const [animar, setAnimar] = useState(false); // <-- activar animación
+  const [animar, setAnimar] = useState(false);
 
-  // Cargar registros
+  // Cargar registros del localStorage al iniciar
   useEffect(() => {
     const saved = localStorage.getItem("registros");
     if (saved) setRegistros(JSON.parse(saved));
   }, []);
 
-  // Guardar en localStorage
+  // Guardar registros en localStorage
   useEffect(() => {
     localStorage.setItem("registros", JSON.stringify(registros));
   }, [registros]);
 
-  // Inputs
+  // Manejo de inputs y checkbox
   const handleInput = (e: any) => {
-    const newData = { ...formData, [e.target.name]: e.target.value };
-    setFormData(newData);
-
-    const total = 4;
-    const llenos = Object.values(newData).filter((v) => v !== "").length;
-    setProgreso(Math.round((llenos / total) * 100));
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
-  // Guardar registro + animación
+  // Guardar registro con animación de barra
   const agregarRegistro = () => {
-    if (!formData.nombre || !formData.edad || !formData.carrera || !formData.telefono) return;
+    if (!formData.nombre || !formData.edad || !formData.carrera || !formData.telefono) {
+      alert("Por favor completa todos los campos");
+      return;
+    }
+    if (!formData.acepto) {
+      alert("Debes aceptar los términos y condiciones");
+      return;
+    }
 
-    setRegistros([...registros, formData]);
-    setFormData({ nombre: "", edad: "", carrera: "", telefono: "" });
     setProgreso(0);
-
-    // Activar animación
     setAnimar(true);
-    setTimeout(() => setAnimar(false), 1200); // duración animación
+
+    // Simular animación de guardado
+    let progresoTemp = 0;
+    const intervalo = setInterval(() => {
+      progresoTemp += 5; // aumenta 5% cada paso
+      setProgreso(progresoTemp);
+
+      if (progresoTemp >= 100) {
+        clearInterval(intervalo);
+        setRegistros([...registros, formData]);
+        setFormData({ nombre: "", edad: "", carrera: "", telefono: "", acepto: false });
+        setAnimar(false);
+        setProgreso(100); // mantener barra llena un instante
+        setTimeout(() => setProgreso(0), 400); // reiniciar después de un toque
+      }
+    }, 50); // velocidad de animación
   };
 
   const eliminarRegistro = (index: number) => {
     setRegistros(registros.filter((_, i) => i !== index));
   };
 
-  // Colores invertidos
-  const colorProgreso =
-    progreso < 33 ? "red" : progreso < 66 ? "yellow" : "green";
+  // Color de barra: rojo, amarillo, verde (opcional)
+  const colorProgreso = progreso < 33 ? "red" : progreso < 66 ? "yellow" : "green";
 
   return (
     <div className="container">
       <img src={icono} alt="logo futurista" className="icon-svg" />
-
       <h1>Registros de alumnos :3</h1>
 
       <div className="form">
@@ -70,7 +86,6 @@ function App() {
           value={formData.nombre}
           onChange={handleInput}
         />
-
         <input
           type="number"
           name="edad"
@@ -78,8 +93,6 @@ function App() {
           value={formData.edad}
           onChange={handleInput}
         />
-
-        {/* SELECT de ingenierías */}
         <select
           name="carrera"
           value={formData.carrera}
@@ -90,7 +103,6 @@ function App() {
           <option value="Ingeniería Industrial">Ingeniería Industrial</option>
           <option value="Ingeniería Mecatrónica">Ingeniería Mecatrónica</option>
         </select>
-
         <input
           type="number"
           name="telefono"
@@ -99,13 +111,24 @@ function App() {
           onChange={handleInput}
         />
 
+        {/* Checkbox de Términos y Condiciones */}
+        <label className="terminos">
+          <input
+            type="checkbox"
+            name="acepto"
+            checked={formData.acepto}
+            onChange={handleInput}
+          />
+          Acepto los términos y condiciones
+        </label>
+
         <button className="btn-registrar" onClick={agregarRegistro}>
           Guardar
         </button>
 
         <div className="barra">
           <div
-            className={`progreso ${animar ? "animar" : ""}`} // <-- clase animada
+            className={`progreso ${animar ? "animar" : ""}`}
             style={{ width: `${progreso}%`, background: colorProgreso }}
           ></div>
         </div>
