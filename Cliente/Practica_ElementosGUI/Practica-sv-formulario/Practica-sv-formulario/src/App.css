@@ -1,0 +1,203 @@
+/* ======= FONDO GALÁCTICO CON ESTRELLAS ======= */
+body {
+  margin: 0;
+  padding: 0;
+  background: radial-gradient(circle at center, #0a0f16, #000);
+  overflow-x: hidden;
+  color: #e6faff;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Partículas estilo estrellas */
+.stars, .stars2, .stars3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-repeat: repeat;
+  background-size: contain;
+  animation: move-stars 60s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.stars {
+  background-image: url('https://i.imgur.com/kKeI9HX.png');
+  opacity: 0.6;
+}
+
+.stars2 {
+  background-image: url('https://i.imgur.com/B9k9RnO.png');
+  animation-duration: 90s;
+  opacity: 0.35;
+}
+
+.stars3 {
+  background-image: url('https://i.imgur.com/GV7CvCq.png');
+  animation-duration: 120s;
+  opacity: 0.25;
+}
+
+@keyframes move-stars {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-500px, -500px); }
+}
+
+/* ======= CONTENEDOR PRINCIPAL ======= */
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 14px;
+
+  background: linear-gradient(135deg, #0e1520aa, #0a1a25aa);
+  backdrop-filter: blur(12px);
+
+  border: 1px solid #00eaff44;
+  box-shadow: 0 0 20px #00eaff33;
+}
+
+/* ======= TÍTULOS ======= */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #7feaff;
+  text-shadow: 0 0 15px #00caffaa;
+}
+
+/* ======= FORMULARIO ======= */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+}
+
+input,
+select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #00aaff55;
+  background: #0a1a25;
+  color: #d9faff;
+  transition: 0.2s;
+}
+
+input:focus,
+select:focus {
+  border-color: #00eaff;
+  box-shadow: 0 0 8px #00eaff88;
+  outline: none;
+}
+
+.error {
+  color: #ff6060;
+  font-size: 0.8rem;
+}
+
+/* Turnos */
+.turnos {
+  display: flex;
+  gap: 20px;
+}
+
+/* ======= BOTONES ======= */
+.btn-registrar {
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: linear-gradient(90deg, #0077ff, #00eaff);
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  text-shadow: 0 0 5px #003344;
+  transition: 0.3s;
+}
+
+.btn-registrar:hover {
+  background: linear-gradient(90deg, #00eaff, #0088ff);
+  box-shadow: 0 0 12px #00eaffaa;
+}
+
+.btn-borrar {
+  margin-left: 10px;
+  background: #b30000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-borrar:hover {
+  background: #ff0000;
+  box-shadow: 0 0 10px #ff5555;
+}
+
+/* ======= BARRA DE PROGRESO ======= */
+.barra {
+  width: 100%;
+  height: 18px;
+  background: #11222e;
+  border-radius: 10px;
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid #00aaff44;
+}
+
+.progreso {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.3s, background 0.3s;
+  box-shadow: 0 0 12px #0008 inset;
+}
+
+/* ======= LISTA ======= */
+.lista {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.lista li {
+  background: #0d1a24aa;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #00eaff33;
+  box-shadow: 0 0 8px #00eaff22;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ======= SVG ======= */
+.icon-svg {
+  width: 80px;
+  display: block;
+  margin: 0 auto 20px auto;
+  filter: drop-shadow(0 0 15px #00eaff);
+  animation: svgFloat 3s infinite ease-in-out;
+}
+
+@keyframes svgFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+/* Animación al guardar */
+.animar {
+  animation: cargar 1.2s ease-out;
+}
+
+@keyframes cargar {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
