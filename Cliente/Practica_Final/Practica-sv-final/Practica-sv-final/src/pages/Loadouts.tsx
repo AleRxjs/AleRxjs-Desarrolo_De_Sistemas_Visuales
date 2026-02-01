@@ -17,10 +17,11 @@ export default function Loadouts() {
   const deleteLoadout = (id: string) => {
     setDeletingId(id);
 
+    // ⏱️ sincronizado con animación glitch + partículas
     setTimeout(() => {
       setLoadouts(loadouts.filter(l => l.id !== id));
       setDeletingId(null);
-    }, 650);
+    }, 850);
   };
 
   const onDragStart = (index: number) => {
@@ -39,11 +40,13 @@ export default function Loadouts() {
   };
 
   const activateBoost = (id: string) => {
-    setLoadouts(loadouts.map(l =>
-      l.id === id
-        ? { ...l, boostActive: true, boostEndsAt: Date.now() + 5000 }
-        : l
-    ));
+    setLoadouts(
+      loadouts.map(l =>
+        l.id === id
+          ? { ...l, boostActive: true, boostEndsAt: Date.now() + 5000 }
+          : l
+      )
+    );
   };
 
   return (
@@ -86,7 +89,9 @@ export default function Loadouts() {
                 {l.primary} / {l.secondary || "Sin secundaria"}
               </p>
 
-              <p className="grenades">{l.grenades.join(", ")}</p>
+              <p className="grenades">
+                {l.grenades.join(", ")}
+              </p>
 
               {l.ability && (
                 <p className="ability">{l.ability}</p>
@@ -98,11 +103,17 @@ export default function Loadouts() {
                 onActivate={() => activateBoost(l.id)}
               />
 
-              {/* partículas */}
+              {/* ☠️ Partículas absorbidas al núcleo */}
               {deletingId === l.id && (
                 <div className="death-particles">
                   {Array.from({ length: 14 }).map((_, i) => (
-                    <span key={i} />
+                    <span
+                      key={i}
+                      style={{
+                        ["--rand-x" as any]: Math.random(),
+                        ["--rand-y" as any]: Math.random(),
+                      }}
+                    />
                   ))}
                 </div>
               )}
@@ -113,4 +124,3 @@ export default function Loadouts() {
     </div>
   );
 }
-

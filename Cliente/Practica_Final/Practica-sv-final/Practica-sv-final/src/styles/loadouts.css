@@ -194,77 +194,37 @@
     opacity: 0.85;
   }
 }
-/* ===== GLITCH + ABSORCIÓN CORTANA ===== */
+/* ===== HALO 4 — ABSORCIÓN FINAL ===== */
 
 .glitch-out {
-  animation: spartanGlitch 0.65s forwards;
+  animation: cortanaAbsorb 0.85s forwards ease-in-out;
 }
 
-@keyframes spartanGlitch {
+@keyframes cortanaAbsorb {
   0% {
     opacity: 1;
     transform: scale(1);
     filter: hue-rotate(0deg);
   }
-  30% {
-    transform: translate(-2px, 1px);
+
+  20% {
+    transform: scale(1.02);
   }
-  50% {
-    transform: translate(2px, -1px);
+
+  45% {
+    transform: scale(0.95);
+    filter: hue-rotate(20deg);
+  }
+
+  70% {
+    opacity: 0.6;
+    transform: scale(0.88);
     filter: hue-rotate(60deg);
   }
-  80% {
-    opacity: 0.5;
-    transform: scale(1.05);
-  }
+
   100% {
     opacity: 0;
-    transform: scale(0.9);
+    transform: scale(0.75);
+    filter: hue-rotate(90deg);
   }
-}
-
-/* ===== PARTÍCULAS ABSORBIDAS ===== */
-
-.death-particles {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.death-particles span {
-  position: absolute;
-  width: 3px;
-  height: 12px;
-  background: linear-gradient(
-    to top,
-    rgba(180, 200, 255, 0.8),
-    rgba(140, 120, 255, 0.9)
-  );
-  left: 50%;
-  top: 50%;
-  transform-origin: center;
-  animation: absorb 0.6s ease-in forwards;
-}
-
-.death-particles span:nth-child(n) {
-  transform: rotate(calc(var(--i) * 25deg))
-    translateY(40px);
-}
-
-@keyframes absorb {
-  from {
-    opacity: 1;
-    transform: translate(var(--x), var(--y)) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(0, 0) scale(0.1);
-  }
-}
-
-/* Random offsets */
-.death-particles span {
-  --x: calc(-40px + 80px * random());
-  --y: calc(-40px + 80px * random());
 }
