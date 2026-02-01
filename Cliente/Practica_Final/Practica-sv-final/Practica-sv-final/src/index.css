@@ -1,0 +1,93 @@
+/* ===============================
+   GLOBAL HALO UI — CORTANA (BLUE / VIOLET)
+   =============================== */
+
+:root {
+  --halo-primary: #7bbcff;     /* azul Cortana */
+  --halo-secondary: #070a14;
+  --halo-surface: #0d1122;
+  --halo-text: #e3e9ff;
+  --halo-accent: #b28cff;      /* violeta Cortana */
+
+  font-family: "Segoe UI", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(120, 140, 255, 0.15),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at bottom,
+      rgba(170, 120, 255, 0.12),
+      transparent 60%
+    ),
+    linear-gradient(
+      180deg,
+      #030516,
+      #040a1f,
+      #00010a
+    );
+
+  color: var(--halo-text);
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ===== BODY ===== */
+body {
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  min-height: 100vh;
+}
+
+/* ===== LINKS ===== */
+a {
+  color: var(--halo-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--halo-accent);
+}
+
+/* ===== BUTTONS ===== */
+button {
+  border-radius: 10px;
+  border: 1px solid rgba(150, 170, 255, 0.45);
+  padding: 0.6em 1.2em;
+
+  background: rgba(12, 14, 35, 0.75);
+  color: var(--halo-text);
+
+  cursor: pointer;
+  transition: 0.35s ease;
+  font-size: 1rem;
+}
+
+button:hover {
+  border-color: rgba(190, 200, 255, 0.8);
+  box-shadow:
+    0 0 18px rgba(120, 160, 255, 0.45),
+    0 0 28px rgba(170, 120, 255, 0.25);
+}
+
+/* ===== TITLES ===== */
+h1 {
+  font-size: 2.9rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #d7dcff;
+  text-shadow:
+    0 0 22px rgba(120, 160, 255, 0.45),
+    0 0 40px rgba(160, 120, 255, 0.25);
+}

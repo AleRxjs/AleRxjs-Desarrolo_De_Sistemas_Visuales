@@ -1,0 +1,76 @@
+/* ===== ROOT CONTAINER ===== */
+#root {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 2.5rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: transparent;
+  color: #e3e9ff;
+
+  text-shadow: 0 0 8px rgba(120, 160, 255, 0.25);
+}
+
+/* ===== CARDS ===== */
+.card {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(22, 26, 64, 0.75),
+      rgba(10, 12, 32, 0.85)
+    );
+  border: 1px solid rgba(160, 170, 255, 0.35);
+  border-radius: 20px;
+
+  padding: 2rem;
+  margin: 1.4rem 0;
+
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 0 35px rgba(150, 170, 255, 0.2),
+    0 25px 80px rgba(0, 0, 0, 0.85);
+
+  transition: 0.45s ease;
+}
+
+/* Cortana shimmer */
+.card:hover {
+  border-color: rgba(190, 200, 255, 0.7);
+  box-shadow:
+    inset 0 0 45px rgba(170, 180, 255, 0.35),
+    0 35px 100px rgba(120, 100, 255, 0.45);
+  transform: translateY(-6px);
+}
+
+/* ===== FOOTER / DOCS ===== */
+.read-the-docs {
+  color: rgba(200, 200, 255, 0.55);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* ===== SOFT BREATHING GLOW ===== */
+@keyframes cortana-glow {
+  0% {
+    box-shadow: 0 0 14px rgba(140, 160, 255, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(160, 170, 255, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 14px rgba(140, 160, 255, 0.25);
+  }
+}
+
+.glow {
+  animation: cortana-glow 5s ease-in-out infinite;
+}
+
+#root-content {
+  position: relative;
+  z-index: 1;
+}

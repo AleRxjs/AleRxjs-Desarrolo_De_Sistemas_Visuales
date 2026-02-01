@@ -1,0 +1,93 @@
+body {
+  background: radial-gradient(circle at center, #0b1026 0%, #02040a 70%, #000 100%);
+  color: #dbeaff;
+  font-family: "Segoe UI", sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== TITULO ===== */
+.halo-title {
+  text-align: center;
+  color: #7aa2ff;
+  margin-bottom: 24px;
+  letter-spacing: 1px;
+  text-shadow:
+    0 0 12px rgba(122, 162, 255, 0.6),
+    0 0 30px rgba(122, 162, 255, 0.25);
+}
+
+/* ===== MARCO PRINCIPAL ===== */
+.halo-frame {
+  border: 1px solid rgba(138, 168, 255, 0.6);
+  background: linear-gradient(
+    160deg,
+    rgba(25, 40, 120, 0.45),
+    rgba(8, 14, 40, 0.75)
+  );
+
+  padding: 18px;
+  border-radius: 14px;
+
+  backdrop-filter: blur(8px);
+
+  box-shadow:
+    0 0 25px rgba(120, 160, 255, 0.35),
+    inset 0 0 18px rgba(120, 160, 255, 0.15);
+}
+
+/* ===== INPUTS ===== */
+.halo-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(130, 160, 255, 0.35);
+
+  background: rgba(10, 16, 40, 0.65);
+  color: #e8f1ff;
+
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.halo-input:focus {
+  border-color: #8aa8ff;
+  box-shadow: 0 0 12px rgba(138, 168, 255, 0.45);
+}
+
+/* ===== BOTON ===== */
+.halo-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(138, 168, 255, 0.6);
+
+  background: linear-gradient(
+    135deg,
+    #5f7dff,
+    #8a6bff
+  );
+
+  color: #020417;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.halo-btn:hover {
+  box-shadow:
+    0 0 20px rgba(138, 168, 255, 0.8),
+    0 0 40px rgba(138, 168, 255, 0.4);
+  transform: translateY(-1px);
+}
+
+/* ===== ERROR ===== */
+.error-msg {
+  color: #ff9bb3;
+  text-shadow: 0 0 6px rgba(255, 155, 179, 0.6);
+}
