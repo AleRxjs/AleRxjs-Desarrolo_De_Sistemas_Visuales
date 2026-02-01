@@ -52,9 +52,9 @@ export default function Loadouts() {
   return (
     <div className="loadouts-page">
       <header className="page-header">
-        <h1 className="halo-title">Organiza tu armadura Spartan</h1>
+        <h1 className="halo-title">Equipamento Spartan </h1>
         <p className="halo-subtitle">
-          Ecos de memoria en un sistema que aún respira.
+          Preparate para el combate.
         </p>
       </header>
 
