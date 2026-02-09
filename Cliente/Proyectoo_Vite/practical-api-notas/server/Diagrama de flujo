@@ -1,0 +1,26 @@
+@startuml
+title Comportamiento de la API de Notas
+
+start
+
+:Usuario realiza petición;
+
+if (¿Es GET o POST?) then (GET /notas)
+  :Consultar MongoDB;
+  if (¿Existen notas?) then (SÍ)
+    :Retornar lista de notas [200 OK];
+  else (NO)
+    :Retornar "¡Mi primera nota!" [200 OK];
+  endif
+else (POST /notas)
+  :Validar texto (min 5 caracteres);
+  if (¿Es válido?) then (SÍ)
+    :Guardar en MongoDB;
+    :Retornar Nota Creada [201 Created];
+  else (NO)
+    :Retornar Error de Validación [400 Bad Request];
+  endif
+endif
+
+stop
+@enduml
