@@ -35,6 +35,20 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
     try {
         const notas = await Nota.find().sort({ createdAt: -1 });
+
+        // --- EL CAMBIO ESTÁ AQUÍ ---
+        // Si la lista está vacía, enviamos una nota de ejemplo en lugar de []
+        if (notas.length === 0) {
+            return res.status(200).json([
+                {
+                    _id: "default-id",
+                    texto: "¡Mi primera nota!",
+                    mensaje: "Esta es una nota de bienvenida automática."
+                }
+            ]);
+        }
+        // ---------------------------
+
         return res.status(200).json(notas);
     } catch (error) {
         console.error("Error al obtener notas:", error);
