@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { UserPlus, Mail, Lock, User, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion'; // Requisito: Animaciones
+import { motion } from 'framer-motion';
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,30 +18,44 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // REGLAS DE NEGOCIO Y VALIDACIÓN DE TIPO DE DATO (Punto 1 de la rúbrica)
+    // VALIDACIONES DE FRONTEND (Punto 1 de la rúbrica)
     const emailRegex = /\S+@\S+\.\S+/;
     if(formData.username.length < 3) return alert("Usuario demasiado corto.");
-    if(!emailRegex.test(formData.email)) return alert("Email no válido (Falta @ o .com)");
+    if(!emailRegex.test(formData.email)) return alert("Email no válido.");
     if(formData.password.length < 6) return alert("Password debe ser mayor a 6 caracteres.");
 
-    const existingUsers = JSON.parse(localStorage.getItem('users_database') || '[]');
-    if (existingUsers.find(u => u.email === formData.email)) return alert("Email ya registrado.");
+    try {
+      // PETICIÓN A LA API (Conexión Backend)
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          role: formData.role // Enviamos el rol para el RBAC
+        })
+      });
 
-    const newUser = {
-      ...formData,
-      id: Date.now(),
-      role: formData.role.charAt(0).toUpperCase() + formData.role.slice(1)
-    };
+      const data = await response.json();
 
-    existingUsers.push(newUser);
-    localStorage.setItem('users_database', JSON.stringify(existingUsers));
-    
-    alert('✨ ¡Registro exitoso!');
-    localStorage.removeItem('register_draft');
-    navigate('/login');
+      if (response.ok) {
+        alert('✨ ¡Registro exitoso en MongoDB!');
+        localStorage.removeItem('register_draft');
+        navigate('/login');
+      } else {
+        // Mostramos el mensaje de error que viene del controlador (authController.js)
+        alert(`Error: ${data.message || 'No se pudo registrar'}`);
+      }
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      alert("No se pudo conectar con el servidor. Verifica que el Backend esté corriendo en el puerto 5000.");
+    }
   };
 
   return (
@@ -55,29 +69,50 @@ const Register = () => {
         </header>
         
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Campo Usuario */}
           <div className="space-y-1.5">
             <label className="text-xs font-black uppercase text-gray-400 tracking-widest ml-1">Usuario</label>
             <div className="relative">
               <User className="absolute left-4 top-3 text-gray-500 w-5 h-5" />
-              <input name="username" value={formData.username} onChange={handleChange} onKeyDown={() => console.log('Typing...')}
-                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 focus:border-gold outline-none text-white transition-all" placeholder="Tu apodo" />
+              <input 
+                name="username" 
+                value={formData.username} 
+                onChange={handleChange}
+                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 focus:border-gold outline-none text-white transition-all" 
+                placeholder="Tu apodo" 
+                required
+              />
             </div>
           </div>
 
+          {/* Campo Email */}
           <div className="space-y-1.5">
             <label className="text-xs font-black uppercase text-gray-400 tracking-widest ml-1">Email</label>
             <div className="relative">
               <Mail className="absolute left-4 top-3 text-gray-500 w-5 h-5" />
-              <input name="email" type="email" value={formData.email} onChange={handleChange}
-                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 focus:border-gold outline-none text-white transition-all" placeholder="cine@ejemplo.com" />
+              <input 
+                name="email" 
+                type="email" 
+                value={formData.email} 
+                onChange={handleChange}
+                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 focus:border-gold outline-none text-white transition-all" 
+                placeholder="cine@ejemplo.com" 
+                required
+              />
             </div>
           </div>
 
+          {/* Selector de Rol */}
           <div className="space-y-1.5">
-            <label className="text-xs font-black uppercase text-gray-400 tracking-widest ml-1">Membresía (4 ROLES)</label>
+            <label className="text-xs font-black uppercase text-gray-400 tracking-widest ml-1">Membresía</label>
             <div className="relative">
               <Shield className="absolute left-4 top-3 text-gray-500 w-5 h-5" />
-              <select name="role" value={formData.role} onChange={handleChange} className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 text-white outline-none">
+              <select 
+                name="role" 
+                value={formData.role} 
+                onChange={handleChange} 
+                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 text-white outline-none appearance-none"
+              >
                 <option value="user">User (Estándar)</option>
                 <option value="vip">VIP (Premium)</option>
                 <option value="editor">Editor (Contenido)</option>
@@ -86,17 +121,29 @@ const Register = () => {
             </div>
           </div>
 
+          {/* Campo Password */}
           <div className="space-y-1.5">
             <label className="text-xs font-black uppercase text-gray-400 tracking-widest ml-1">Contraseña</label>
             <div className="relative">
               <Lock className="absolute left-4 top-3 text-gray-500 w-5 h-5" />
-              <input name="password" type="password" value={formData.password} onChange={handleChange}
-                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 focus:border-gold outline-none text-white transition-all" placeholder="••••••••" />
+              <input 
+                name="password" 
+                type="password" 
+                value={formData.password} 
+                onChange={handleChange}
+                className="w-full bg-midnight border border-gray-800 rounded-xl py-3 pl-12 focus:border-gold outline-none text-white transition-all" 
+                placeholder="••••••••" 
+                required
+              />
             </div>
           </div>
 
-          <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" 
-            className="w-full bg-gold text-midnight font-black py-4 rounded-2xl mt-4 uppercase tracking-widest text-sm shadow-xl">
+          <motion.button 
+            whileHover={{ scale: 1.02 }} 
+            whileTap={{ scale: 0.98 }} 
+            type="submit" 
+            className="w-full bg-gold text-midnight font-black py-4 rounded-2xl mt-4 uppercase tracking-widest text-sm shadow-xl"
+          >
             CREAR MI CUENTA
           </motion.button>
         </form>

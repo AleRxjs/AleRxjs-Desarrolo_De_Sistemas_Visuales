@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext'; // Corregido: sin "Value"
-import { Film, Star, ShieldCheck, LogOut, Clapperboard } from 'lucide-react';
+import { AuthContext } from '../context/AuthContext';
+import { Film, Star, ShieldCheck, LogOut, Clapperboard, Ticket, PlusCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard = () => {
@@ -21,8 +21,8 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-midnight p-6 font-sans">
-      {/* Navbar con estilo Midnight */}
+    <div className="min-h-screen bg-midnight p-6 font-sans text-white">
+      {/* Navbar */}
       <div className="max-w-6xl mx-auto flex justify-between items-center mb-10 border-b border-gold/10 pb-4">
         <div className="flex items-center gap-2">
           <Clapperboard className="text-gold w-8 h-8" />
@@ -46,39 +46,48 @@ const Dashboard = () => {
           </div>
         </header>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           
-          {/* Cartelera - Acceso para todos */}
-          <div className="bg-surface p-8 rounded-3xl border border-white/5 hover:border-gold/20 transition-all group cursor-pointer" 
+          {/* 1. CARTELERA */}
+          <div className="bg-surface p-6 rounded-3xl border border-white/5 hover:border-gold/20 transition-all group cursor-pointer" 
                onClick={() => navigate('/movies')}>
-            <Film className="text-gold mb-6 w-10 h-10 group-hover:scale-110 transition-transform" />
-            <h3 className="text-2xl font-bold mb-3">Cartelera</h3>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6">Explora los últimos estrenos y clásicos del cine mundial.</p>
-            <span className="text-gold text-xs font-black uppercase tracking-widest group-hover:underline">Explorar →</span>
+            <Film className="text-gold mb-4 w-8 h-8 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2">Cartelera</h3>
+            <p className="text-gray-500 text-xs mb-4">Explora los últimos estrenos.</p>
+            <span className="text-gold text-[10px] font-black uppercase tracking-widest">Explorar →</span>
           </div>
 
-          {/* VIP Content */}
-          {(user.role === 'VIP' || user.role === 'Admin') && (
-            <div className="bg-surface p-8 rounded-3xl border border-gold/20 shadow-[0_0_30px_rgba(255,180,58,0.02)] relative overflow-hidden">
-              <Star className="text-gold mb-6 w-10 h-10" />
-              <h3 className="text-2xl font-bold mb-3 text-gold">Exclusive</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">Acceso premium a preventas y contenido detrás de cámaras.</p>
+          {/* 2. COMPRAR TICKET (Formulario 3 de 4) */}
+          <div className="bg-surface p-6 rounded-3xl border border-white/5 hover:border-gold/20 transition-all group cursor-pointer" 
+               onClick={() => navigate('/purchase/default')}>
+            <Ticket className="text-gold mb-4 w-8 h-8 group-hover:scale-110 transition-transform" />
+            <h3 className="text-xl font-bold mb-2">Comprar</h3>
+            <p className="text-gray-500 text-xs mb-4">Reserva tus asientos ahora.</p>
+            <span className="text-gold text-[10px] font-black uppercase tracking-widest">Reservar →</span>
+          </div>
+
+          {/* 3. VIP CONTENT (RBAC) */}
+          {(user.role === 'vip' || user.role === 'admin') && (
+            <div className="bg-surface p-6 rounded-3xl border border-gold/20 relative overflow-hidden group">
+              <Star className="text-gold mb-4 w-8 h-8 group-hover:rotate-12 transition-transform" />
+              <h3 className="text-xl font-bold mb-2 text-gold">Exclusive</h3>
+              <p className="text-gray-500 text-xs">Contenido preventa disponible.</p>
             </div>
           )}
 
-          {/* Admin Panel */}
-          {user.role === 'Admin' && (
-            <div className="bg-gold p-8 rounded-3xl text-midnight flex flex-col justify-between">
+          {/* 4. ADMIN PANEL (RBAC + Formulario 4 de 4) */}
+          {user.role === 'admin' && (
+            <div className="bg-gold p-6 rounded-3xl text-midnight flex flex-col justify-between hover:scale-[1.02] transition-transform">
               <div>
-                <ShieldCheck className="mb-6 w-10 h-10" />
-                <h3 className="text-2xl font-black mb-3 italic uppercase">Admin Panel</h3>
-                <p className="text-midnight/70 text-sm font-bold leading-relaxed">Gestión total de cintas, usuarios y métricas.</p>
+                <PlusCircle className="mb-4 w-8 h-8" />
+                <h3 className="text-xl font-black mb-1 uppercase italic">Gestión</h3>
+                <p className="text-midnight/70 text-[10px] font-bold leading-tight">Añadir nuevas cintas al sistema.</p>
               </div>
               <button 
-                onClick={() => navigate('/admin')}
-                className="mt-8 bg-midnight text-white w-full py-4 rounded-2xl text-xs font-black uppercase tracking-[0.2em] hover:opacity-90 transition-opacity"
+                onClick={() => navigate('/admin/add-movie')}
+                className="mt-4 bg-midnight text-white w-full py-3 rounded-xl text-[10px] font-black uppercase tracking-widest"
               >
-                Configurar Sistema
+                Nueva Película
               </button>
             </div>
           )}

@@ -27,3 +27,23 @@ exports.getMovieById = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// --- NUEVA FUNCIÓN: REQUISITO DE PERSISTENCIA EN MONGO ---
+exports.updateMovie = async (req, res) => {
+    try {
+        // Buscamos por ID y actualizamos con los datos que vienen del formulario (req.body)
+        const updatedMovie = await Movie.findByIdAndUpdate(
+            req.params.id, 
+            req.body, 
+            { new: true, runValidators: true } // 'new: true' devuelve la peli ya editada
+        );
+
+        if (!updatedMovie) {
+            return res.status(404).json({ message: 'No se encontró la película para actualizar' });
+        }
+
+        res.json(updatedMovie);
+    } catch (error) {
+        res.status(400).json({ message: "Error al actualizar la base de datos", details: error.message });
+    }
+};

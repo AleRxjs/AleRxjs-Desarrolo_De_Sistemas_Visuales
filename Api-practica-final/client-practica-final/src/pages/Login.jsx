@@ -5,10 +5,9 @@ import { Mail, Lock, LogIn } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useContext(AuthContext); // Función del contexto para guardar la sesión
   const navigate = useNavigate();
   
-  // Borrador para el Login
   const [email, setEmail] = useState(() => localStorage.getItem('login_email_draft') || '');
   const [password, setPassword] = useState('');
 
@@ -16,17 +15,37 @@ const Login = () => {
     localStorage.setItem('login_email_draft', email);
   }, [email]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem('users_database') || '[]');
-    const userFound = users.find(u => u.email === email && u.password === password);
 
-    if (userFound) {
-      login({ name: userFound.username, role: userFound.role });
-      localStorage.removeItem('login_email_draft');
-      navigate('/dashboard');
-    } else {
-      alert('Credenciales incorrectas.');
+    try {
+      // 1. Petición a la API de tu Backend
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // 2. Si las credenciales son correctas (Backend validó con bcrypt)
+        alert(`¡Bienvenido de nuevo, ${data.username}!`);
+        
+        // Guardamos en el contexto de Auth de React
+        login({ name: data.username, role: data.role });
+        
+        localStorage.removeItem('login_email_draft');
+        navigate('/dashboard'); // O a la ruta que prefieras
+      } else {
+        // 3. El Backend respondió "Credenciales incorrectas"
+        alert(data.message || 'Error al iniciar sesión');
+      }
+    } catch (error) {
+      console.error("Error de conexión:", error);
+      alert("No se pudo conectar con el servidor. Verifica que el Backend esté en el puerto 5000.");
     }
   };
 
