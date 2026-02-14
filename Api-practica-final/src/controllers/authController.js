@@ -22,3 +22,14 @@ exports.login = async (req, res) => {
     res.status(401).json({ message: "Credenciales incorrectas" });
   }
 };
+
+exports.me = (req, res) => {
+  // protect middleware decodes token and sets req.user
+  if (!req.user) return res.status(401).json({ message: 'No autorizado' });
+  res.json({ id: req.user.id, role: req.user.role });
+};
+
+exports.logout = (req, res) => {
+  res.clearCookie('token');
+  res.json({ message: 'Logged out' });
+};

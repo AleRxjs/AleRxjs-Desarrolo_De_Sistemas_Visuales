@@ -17,3 +17,13 @@ exports.createMovie = async (req, res) => {
         res.status(400).json({ message: "Datos de película inválidos" });
     }
 };
+
+exports.getMovieById = async (req, res) => {
+    try {
+        const movie = await Movie.findById(req.params.id);
+        if (!movie) return res.status(404).json({ message: 'Película no encontrada' });
+        res.json(movie);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};

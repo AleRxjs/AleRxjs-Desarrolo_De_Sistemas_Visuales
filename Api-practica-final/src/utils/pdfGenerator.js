@@ -13,5 +13,7 @@ exports.generateTicketPDF = (ticketData, res) => {
     doc.fontSize(12).text(`Usuario: ${ticketData.userName}`);
     doc.text(`Película: ${ticketData.movieTitle}`);
     doc.text(`Fecha: ${new Date().toLocaleString()}`);
+    // Añadir un pequeño código QR o SVG si se desea (placeholder)
+    // pdfkit puede agregar imagenes en base64 si se provee.
     doc.end();
 };
